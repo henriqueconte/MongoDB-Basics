@@ -1,0 +1,4 @@
+// Q1
+db.restaurants.find().sort({'name' : 1})
+
+// Q2
