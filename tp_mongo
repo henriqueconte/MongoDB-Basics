@@ -1,4 +1,120 @@
+// Nom: Henrique Figueiredo Conte
+
 // Q1
-db.restaurants.find().sort({'name' : 1})
+db.restaurants.find().sort({"name" : 1})
 
 // Q2
+db.restaurants.find( { "cuisine": "Italian" }, {"name" : 1, "address.zipcode" : 1, "address.coord" : 1, "_id": 0 } ).sort( {"address.coord" : 1, "name": -1})
+
+// Q3 
+db.restaurants.find( { "cuisine": "Italian", "address.zipcode" : "10075", "telephoneNumber": {$exists: true} }, {"name" : 1, "address.zipcode": 1, "telephoneNumber": 1} )
+
+// Q4
+db.restaurants.find( { "grades.score": {$gt: 49} } )
+
+// Q5
+db.restaurants.find({ 
+    $or : [ 
+        {"cuisine": "Italian"},
+        {"address.zipcode": "10075"}
+    ]
+})
+
+// Q6
+db.restaurants.find({
+    $and : [
+        { "grades.score": {$gt : 49} },
+        { $or : [
+            {"address.zipcode" : "10075"},
+            {"address.zipcode": "10098"}
+        ] },
+        { $or : [
+            {"cuisine": "Italian"},
+            {"cuisine": "American"}
+        ] }
+    ] 
+})
+
+// Q7
+db.restaurants.find({
+    $or : [
+        { "grades.grade" : "C" },
+        { "grades.grade" : "P" },
+        { "grades.grade" : "Q" }
+    ]
+},
+    {
+        "name": 1,
+        "cuisine": 1,
+        "address.zipcode": 1,
+        "_id": 0
+    }
+)
+
+// Q8
+db.restaurants.find({
+    "name": "Juni"
+})
+
+db.restaurants.update( 
+    {
+         "name": "Juni" 
+    },
+    {
+        $set: {
+            "cuisine": "American (new)",
+            "lastModified": Date()
+        }
+    }
+)
+
+// Q9
+db.restaurants.find({
+    "restaurant_id" : "41156888"
+})
+
+db.restaurants.update(
+    {
+        "restaurant_id" : "41156888"
+    },
+    {
+        $set: {
+            "address.street" : "East 31st Street"
+        }
+    }
+)
+
+// Q10 -> Ne marche pas
+db.restaurants.find({
+    $and: [
+        {"address.zipcode" : "10016"},
+        {"cuisine" : "Other"}
+    ]
+})
+
+db.restaurants.update(
+    {
+        $and: [
+            {"address.zipcode" : "10016"},
+            {"cuisine" : "Other"}
+        ]
+    },
+    {
+        $set: { 
+            "cuisine" : "Cuisine to be determined",
+            "lastModified" : Date()
+        }
+    }
+)
+
+// Q11
+db.restaurants.find({"restaurant_id" : "41154403"})
+
+// db.restaurants.update(
+//     {
+//         "restaurant_id" : "41154403"
+//     },
+//     {
+        
+//     }
+// )
