@@ -110,11 +110,21 @@ db.restaurants.update(
 // Q11
 db.restaurants.find({"restaurant_id" : "41154403"})
 
-// db.restaurants.update(
-//     {
-//         "restaurant_id" : "41154403"
-//     },
-//     {
-        
-//     }
-// )
+
+db.restaurants.update(
+    {
+        "restaurant_id" : "41154403"
+    },
+    {
+        "restaurant_id" : "41154403",
+        "name" : "Vella 2",
+        "address" : {
+            "city" : "1480",
+            "street" : "2 Avenue",
+            "zipcode":"10075"
+        }
+    }
+) 
+
+
+// Q12 
