@@ -133,3 +133,13 @@ db.restaurants.aggregate([
         $group: { _id: "$cuisine", sumQuantity: { $sum: 1 } }
     }
 ])
+
+// Q13
+db.restaurants.aggregate([
+    {
+        $match: { cuisine: "Italian" }
+    },
+    {
+        $group: { _id: "$address.zipcode", sumQuantity: { $sum: 1 } }
+    }
+]) 
