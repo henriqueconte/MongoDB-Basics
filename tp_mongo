@@ -228,3 +228,17 @@ db.comments.insertMany([
       "type" : "positive"
     }
 ])
+
+//Q17
+db.comments.aggregate([
+    {
+        $lookup: {
+            from: "restaurants",
+            localField: "restaurant_id",
+            foreignField: "restaurant_id",
+            as: "restaurant"
+        }
+    }
+]) 
+
+//Q18
