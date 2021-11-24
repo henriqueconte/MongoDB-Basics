@@ -143,3 +143,31 @@ db.restaurants.aggregate([
         $group: { _id: "$address.zipcode", sumQuantity: { $sum: 1 } }
     }
 ]) 
+
+// Q14 (moyenne des prix moyens)
+db.restaurants.aggregate([
+    {
+        $match: { $and: [
+            { cuisine: "Italian" },
+            { restaurant_id: { $gt: "41205308" } },
+            { averagePrice: { $exists: true } }
+        ] }
+    },
+    {
+        $group: { _id: "", moyenne: { $avg: "$averagePrice" } }
+    }
+])
+
+//Q14 (moyenne par code postal)
+db.restaurants.aggregate([
+    {
+        $match: { $and: [
+            { cuisine: "Italian" },
+            { restaurant_id: { $gt: "41205308" } },
+            { averagePrice: { $exists: true } }
+        ] }
+    },
+    {
+        $group: { _id: "$address.zipcode", moyenne: { $avg: "$averagePrice" } }
+    }
+])
