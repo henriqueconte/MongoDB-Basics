@@ -171,3 +171,60 @@ db.restaurants.aggregate([
         $group: { _id: "$address.zipcode", moyenne: { $avg: "$averagePrice" } }
     }
 ])
+
+//Q15 
+db.createCollection("comments")
+
+
+//Q16 (mes données)
+db.comments.insertMany([
+    {
+        "_id" : "5f578aa42b20105df7818a92",
+        "restaurant_id" : "40366812",
+        "client_id" : "128128abcabc",
+        "comment" : "Delicious food and drinks",
+        "date" : ISODate("2016-03-03T08:00:00.000"),
+        "type" : "positive"
+    },
+    {
+        "_id" : "5f578aa42b20105df7818a7c",
+        "restaurant_id" : "40366230",
+        "client_id" : "701701rtdrtd",
+        "comment" : "Hated the price",
+        "date" : ISODate("2016-03-03T08:00:00.000"),
+        "type" : "negative"
+    },
+    {
+        "_id" : "5f578aa42b20105df7818a78",
+        "restaurant_id" : "40366157",
+        "client_id" : "955955magmag",
+        "comment" : "Best meal of my life",
+        "date" : ISODate("2016-03-03T08:00:00.000"),
+        "type" : "positive"
+    }
+])
+
+//Q16 (avec données du prof)
+db.comments.insertMany([
+    {
+      "restaurant_id" : "50003263",
+      "client_id" : "56434124",
+      "comment" : "Surprizingly good cuisine. The location was leaving doubts",
+      "date" : ISODate("2020-04-15T04:37:00.000Z"),
+      "type" : "positve"
+    },
+    {
+      "restaurant_id" : "50008109",
+      "client_id" : "794212638",
+      "comment" : "Very bad cuisine. To avoid !",
+      "date" : ISODate("2019-12-31T00:00:00.000Z"),
+      "type" : "negative"
+    },
+    {
+      "restaurant_id" : "50015658",
+      "client_id" : "32189446",
+      "comment" : "Classical cuisine, but good",
+      "date" : ISODate("2020-06-12T14:21:59.999Z"),
+      "type" : "positive"
+    }
+])
