@@ -496,6 +496,75 @@ db.restaurants.find(
 // documents examinés, les stages d'exécution, l'index utilisé pour la requête et d'autres informations.
 
 
-// 
+// Q25
+db.restaurants.dropIndex("cuisine_1") 
+db.restaurants.dropIndex("cuisine_1_address.zipcode_-1") 
+db.restaurants.find(
+    {
+        "cuisine": "Italian"
+    }
+).explain("executionStats")
 
+// Réponse:
+// {
+// 	"queryPlanner" : {
+// 		"plannerVersion" : 1,
+// 		"namespace" : "figueirh.restaurants",
+// 		"indexFilterSet" : false,
+// 		"parsedQuery" : {
+// 			"cuisine" : {
+// 				"$eq" : "Italian"
+// 			}
+// 		},
+// 		"winningPlan" : {
+// 			"stage" : "COLLSCAN",
+// 			"filter" : {
+// 				"cuisine" : {
+// 					"$eq" : "Italian"
+// 				}
+// 			},
+// 			"direction" : "forward"
+// 		},
+// 		"rejectedPlans" : [ ]
+// 	},
+// 	"executionStats" : {
+// 		"executionSuccess" : true,
+// 		"nReturned" : 1070,
+// 		"executionTimeMillis" : 19,
+// 		"totalKeysExamined" : 0,
+// 		"totalDocsExamined" : 25356,
+// 		"executionStages" : {
+// 			"stage" : "COLLSCAN",
+// 			"filter" : {
+// 				"cuisine" : {
+// 					"$eq" : "Italian"
+// 				}
+// 			},
+// 			"nReturned" : 1070,
+// 			"executionTimeMillisEstimate" : 20,
+// 			"works" : 25358,
+// 			"advanced" : 1070,
+// 			"needTime" : 24287,
+// 			"needYield" : 0,
+// 			"saveState" : 198,
+// 			"restoreState" : 198,
+// 			"isEOF" : 1,
+// 			"invalidates" : 0,
+// 			"direction" : "forward",
+// 			"docsExamined" : 25356
+// 		}
+// 	},
+// 	"serverInfo" : {
+// 		"host" : "grothendieck.ensimag.fr",
+// 		"port" : 27017,
+// 		"version" : "3.6.23",
+// 		"gitVersion" : "d352e6a4764659e0d0350ce77279de3c1f243e5c"
+// 	},
+// 	"ok" : 1
+// }
+
+// Maintenant, le plan d'exécution utilise l'index default, parce que dans "winningPlan" il ne donne plus de détails 
+// sur l'index. En outre, il n'y a plus des "rejectedPlans", parce que nous avons juste une possiblité de plan. 
+// Sans l'index, le temps d'exécution est devenu 19 millisecondes à la place de 7 millisecondes, car maintenant
+// la requête a examiné 25356 documents à la place de 1070. 
 
