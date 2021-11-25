@@ -330,3 +330,93 @@ db.restaurants.createIndex( {
 db.restaurants.getIndexes() 
 
 //Q23
+db.restaurants.find(
+    {
+        "cuisine": "Italian"
+    }
+).explain()
+
+// Le système fourni les informations souvantes:
+// {
+// 	"queryPlanner" : {
+// 		"plannerVersion" : 1,
+// 		"namespace" : "figueirh.restaurants",
+// 		"indexFilterSet" : false,
+// 		"parsedQuery" : {
+// 			"cuisine" : {
+// 				"$eq" : "Italian"
+// 			}
+// 		},
+// 		"winningPlan" : {
+// 			"stage" : "FETCH",
+// 			"inputStage" : {
+// 				"stage" : "IXSCAN",
+// 				"keyPattern" : {
+// 					"cuisine" : 1,
+// 					"address.zipcode" : -1
+// 				},
+// 				"indexName" : "cuisine_1_address.zipcode_-1",
+// 				"isMultiKey" : false,
+// 				"multiKeyPaths" : {
+// 					"cuisine" : [ ],
+// 					"address.zipcode" : [ ]
+// 				},
+// 				"isUnique" : false,
+// 				"isSparse" : false,
+// 				"isPartial" : false,
+// 				"indexVersion" : 2,
+// 				"direction" : "forward",
+// 				"indexBounds" : {
+// 					"cuisine" : [
+// 						"[\"Italian\", \"Italian\"]"
+// 					],
+// 					"address.zipcode" : [
+// 						"[MaxKey, MinKey]"
+// 					]
+// 				}
+// 			}
+// 		},
+// 		"rejectedPlans" : [
+// 			{
+// 				"stage" : "FETCH",
+// 				"inputStage" : {
+// 					"stage" : "IXSCAN",
+// 					"keyPattern" : {
+// 						"cuisine" : 1
+// 					},
+// 					"indexName" : "cuisine_1",
+// 					"isMultiKey" : false,
+// 					"multiKeyPaths" : {
+// 						"cuisine" : [ ]
+// 					},
+// 					"isUnique" : false,
+// 					"isSparse" : false,
+// 					"isPartial" : false,
+// 					"indexVersion" : 2,
+// 					"direction" : "forward",
+// 					"indexBounds" : {
+// 						"cuisine" : [
+// 							"[\"Italian\", \"Italian\"]"
+// 						]
+// 					}
+// 				}
+// 			}
+// 		]
+// 	},
+// 	"serverInfo" : {
+// 		"host" : "grothendieck.ensimag.fr",
+// 		"port" : 27017,
+// 		"version" : "3.6.23",
+// 		"gitVersion" : "d352e6a4764659e0d0350ce77279de3c1f243e5c"
+// 	},
+// 	"ok" : 1
+// }
+
+// Comment nous pouvons voir, en "parsedQuery", il montre que nous cherchon les restaurants italians. 
+// En outre, le système a choisi de utiliser l'index qui considère la cuisine et le zipcode, 
+// et a refusé d'utiliser l'index qui considère seulement la cuisine. 
+// Nous pouvons aussi voir les informations à propos du serveur, mais je n'ai rien fait avec ces informations.
+
+
+
+//Q24
