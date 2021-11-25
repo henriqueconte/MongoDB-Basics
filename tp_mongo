@@ -316,3 +316,17 @@ db.restaurants.aggregate([
         }
     }
 ])
+
+//Q20
+db.restaurants.createIndex( { cuisine: 1 } ) 
+
+//Q21
+db.restaurants.createIndex( { 
+    "cuisine" : 1, 
+    "address.zipcode" : -1 
+} ) 
+
+//Q22
+db.restaurants.getIndexes() 
+
+//Q23
