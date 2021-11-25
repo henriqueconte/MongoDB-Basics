@@ -420,3 +420,82 @@ db.restaurants.find(
 
 
 //Q24
+db.restaurants.find(
+    {
+        "cuisine": "Italian"
+    }
+).explain("executionStats")
+
+// Avec cette requête, le système retourne les mêmes informations de la requête précédent,
+// et ajoute le champs executionStats, que nous pouvons voir ci-dessous:
+// "executionStats" : {
+//     "executionSuccess" : true,
+//     "nReturned" : 1070,
+//     "executionTimeMillis" : 7,
+//     "totalKeysExamined" : 1070,
+//     "totalDocsExamined" : 1070,
+//     "executionStages" : {
+//         "stage" : "FETCH",
+//         "nReturned" : 1070,
+//         "executionTimeMillisEstimate" : 0,
+//         "works" : 1071,
+//         "advanced" : 1070,
+//         "needTime" : 0,
+//         "needYield" : 0,
+//         "saveState" : 9,
+//         "restoreState" : 9,
+//         "isEOF" : 1,
+//         "invalidates" : 0,
+//         "docsExamined" : 1070,
+//         "alreadyHasObj" : 0,
+//         "inputStage" : {
+//             "stage" : "IXSCAN",
+//             "nReturned" : 1070,
+//             "executionTimeMillisEstimate" : 0,
+//             "works" : 1071,
+//             "advanced" : 1070,
+//             "needTime" : 0,
+//             "needYield" : 0,
+//             "saveState" : 9,
+//             "restoreState" : 9,
+//             "isEOF" : 1,
+//             "invalidates" : 0,
+//             "keyPattern" : {
+//                 "cuisine" : 1,
+//                 "address.zipcode" : -1
+//             },
+//             "indexName" : "cuisine_1_address.zipcode_-1",
+//             "isMultiKey" : false,
+//             "multiKeyPaths" : {
+//                 "cuisine" : [ ],
+//                 "address.zipcode" : [ ]
+//             },
+//             "isUnique" : false,
+//             "isSparse" : false,
+//             "isPartial" : false,
+//             "indexVersion" : 2,
+//             "direction" : "forward",
+//             "indexBounds" : {
+//                 "cuisine" : [
+//                     "[\"Italian\", \"Italian\"]"
+//                 ],
+//                 "address.zipcode" : [
+//                     "[MaxKey, MinKey]"
+//                 ]
+//             },
+//             "keysExamined" : 1070,
+//             "seeks" : 1,
+//             "dupsTested" : 0,
+//             "dupsDropped" : 0,
+//             "seenInvalidated" : 0
+//         }
+//     }
+// }
+
+// Dans le champs executionStats, nous découvrons si l'exécution a été un succès, le temps d'exécution, le nombre de 
+// documents examinés, les stages d'exécution, l'index utilisé pour la requête et d'autres informations.
+
+
+// 
+
+
