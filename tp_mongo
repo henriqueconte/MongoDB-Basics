@@ -241,4 +241,78 @@ db.comments.aggregate([
     }
 ]) 
 
-//Q18
+//Q18 (avec les données du prof)
+db.comments.insertMany([
+    {
+        "restaurant_id" : "50003263",
+      "client_id" : "56434124",
+      "comment" : "Gosh, looks bad but taste better",
+      "date" : ISODate("2018-04-15T04:37:00.000Z"),
+      "type" : "positve"
+    },
+    {
+        "restaurant_id" : "50008109",
+      "client_id" : "32189446",
+      "comment" : "I ended sick...",
+      "date" : ISODate("2019-12-31T00:00:00.000Z"),
+      "type" : "negative"
+    },
+    {
+        "restaurant_id" : "40386062",
+      "client_id" : "32189446",
+      "comment" : "Not bad at all",
+      "date" : ISODate("2020-01-12T14:21:59.999Z"),
+      "type" : "positive"
+   },
+   {
+        "restaurant_id" : "40386062",
+      "client_id" : "56434124",
+      "comment" : "Berk !",
+      "date" : ISODate("2029-04-10T04:37:00.000Z"),
+      "type" : "negative"
+    },
+    {
+        "restaurant_id" : "50008109",
+      "client_id" : "79423638",
+      "comment" : "Bof... I've seen better food",
+      "date" : ISODate("2011-12-31T00:00:00.000Z"),
+      "type" : "negative"
+    },
+    {
+        "restaurant_id" : "50015658",
+      "client_id" : "32368446",
+      "comment" : "Very good !",
+      "date" : ISODate("2018-03-12T14:21:59.999Z"),
+      "type" : "positive"
+   },
+   {
+      "restaurant_id" : "50015658",
+      "client_id" : "32167246",
+      "comment" : "Un régal !",
+      "date" : ISODate("2020-03-18T14:21:59.999Z"),
+      "type" : "positive"
+   }
+])
+
+//Q19 
+// Comment le question voulait juste le nom et les commentaires, j'ai utilisé le nom du restaurant comment _id,
+// par contre ce n'est pas l'ideal
+db.restaurants.aggregate([
+    {
+        $lookup: {
+            from: "comments",
+            localField: "restaurant_id",
+            foreignField: "restaurant_id",
+            as: "comments"
+        }
+    },
+    {
+        $unwind: "$comments" 
+    },
+    {
+        $group: {
+            _id: "$name",
+            comments: { $push: "$comments" }
+        }
+    }
+])
