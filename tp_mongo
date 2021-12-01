@@ -1,4 +1,6 @@
-// Nom: Henrique Figueiredo Conte
+// Nom: Figueiredo Conte
+// Prénom: Henrique
+// Numéro d'étudiant: 42102368
 
 // Q1
 db.restaurants.find().sort({"name" : 1})
@@ -84,7 +86,7 @@ db.restaurants.update(
     }
 )
 
-// Q10 -> Ne marche pas ??
+// Q10
 db.restaurants.find({
     $and: [
         {"address.zipcode" : "10016"},
@@ -92,7 +94,14 @@ db.restaurants.find({
     ]
 })
 
-db.restaurants.update(
+db.restaurants.find({
+    $and: [
+        {"address.zipcode" : "10016"},
+        {"cuisine" : "Cuisine to be determined"}
+    ]
+})
+
+db.restaurants.updateMany(
     {
         $and: [
             {"address.zipcode" : "10016"},
